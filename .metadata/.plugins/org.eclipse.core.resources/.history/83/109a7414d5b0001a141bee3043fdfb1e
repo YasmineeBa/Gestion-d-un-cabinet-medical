@@ -1,0 +1,28 @@
+import java.util.Vector;
+
+
+public class Octet {
+	private Vector<Bit> bits;
+
+	public Octet(Vector<Bit> bits) throws TD5Exception {
+		for(int i=0;i<8;i++){
+			if(!(bits.get(i).toString()=="0" || bits.get(i).toString()=="1")) throw new TD5Exception("Valeur de bit invalide");
+		}
+		this.bits = bits;
+	}
+	
+	public String toString(){
+		String s = this.bits.get(0).toString();
+		for(int i=1; i<8; i++){
+			s=s+this.bits.get(i).toString();
+		}
+		return s;
+	}
+	
+	public Vector<Bit> Compl1(){
+		Vector<Bit> v = new Vector<Bit>();
+		for(int i=0;i<8;i++){
+			v.set(i, this.bits.get(i).Inverse());
+		}
+	}
+}

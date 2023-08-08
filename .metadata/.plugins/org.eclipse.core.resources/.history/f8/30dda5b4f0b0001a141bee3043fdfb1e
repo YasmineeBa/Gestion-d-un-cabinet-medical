@@ -1,0 +1,24 @@
+import java.util.Vector;
+
+
+public class Pays {
+	private String nom;
+	private Vector<Monument> monuments;
+	public Pays(String nom) {
+		this.nom = nom;
+		this.monuments = new Vector<Monument>();
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public Vector<Monument> getMonuments() {
+		return monuments;
+	}
+	public void setMonuments(Vector<Monument> monuments) {
+		this.monuments = monuments;
+	}
+	
+}

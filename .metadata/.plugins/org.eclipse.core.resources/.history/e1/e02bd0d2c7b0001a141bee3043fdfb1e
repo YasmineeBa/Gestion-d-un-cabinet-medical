@@ -1,0 +1,13 @@
+import java.util.Vector;
+
+
+public class Octet {
+	private Vector<Bit> bits;
+
+	public Octet(Vector<Bit> bits) {
+		this.bits=new Vector<Bit>;
+		this.bits = bits;
+	}
+	
+	
+}

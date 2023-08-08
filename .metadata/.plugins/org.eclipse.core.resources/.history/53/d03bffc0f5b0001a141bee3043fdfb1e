@@ -1,0 +1,37 @@
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Scanner;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		HashSet<Pays> C1 = new HashSet<Pays>();
+		System.out.println("1-Ajouter un pays.\n 2-Quitter\n ");
+		int choix ;
+		do {choix = sc.nextInt();
+			switch(choix){
+			case 1:
+				Pays p = new Pays();
+				p.Lire();
+				C1.add(p);
+				break;
+			default:
+			System.out.println("Choisissez une option du menu.");
+			break;
+			}
+		}while (choix!=2);
+		Iterator<Pays> it = C1.iterator();
+		Pays p = new Pays();
+		while(it.hasNext()){
+			p=it.next();
+			for(int i = 0;i<p.getMonuments().size();i++){
+				if(p.getMonuments().get(i) instanceof MonRenvoe){
+					System.out.println(p.getMonuments().get(i).toString());
+				}
+			}
+		}
+	}
+}

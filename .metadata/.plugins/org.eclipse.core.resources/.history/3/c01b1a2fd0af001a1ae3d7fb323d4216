@@ -1,0 +1,21 @@
+import java.util.Vector;
+import java.util.Date;
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//création d'un centre commercial
+		Categorie cat= null;
+		CentreCommercial c= new CentreCommercial("HaniaCenter","Alger");
+		//ajout des clients
+		Vector<Client> V = new Vector<Client>();
+		c.setClients(V);
+		c.AjouterClient(new Client(1254,"Scott","Hardin","London","0456987"));
+		c.AjouterClient(new Client(5541,"Kirigaya","Naoru","Tokyo","0564266"));
+		c.AjouterClient(new Client(5874,"Asahina","Yusuke","zeralda","0256984"));
+		//ajout des produits
+		
+		
+	}
+
+}

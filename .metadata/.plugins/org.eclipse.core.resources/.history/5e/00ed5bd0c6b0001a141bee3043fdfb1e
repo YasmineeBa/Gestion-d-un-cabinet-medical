@@ -1,0 +1,13 @@
+
+public class Bit {
+	private char valeur;
+
+	public Bit(char valeur) {
+		this.valeur = valeur;
+	}
+	
+	public char Inverse(){
+		if(this.valeur=='0') return '1';
+		else return '0';
+	}
+}

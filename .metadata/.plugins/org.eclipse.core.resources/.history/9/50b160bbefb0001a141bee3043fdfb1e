@@ -1,0 +1,65 @@
+import java.util.Scanner;
+
+
+public class MonRenvoe extends Monument {
+	private String AnneeRenov;
+	private float pourcentage;
+	public MonRenvoe() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public String getAnneeRenov() {
+		return AnneeRenov;
+	}
+	public void setAnneeRenov(String anneeRenov) {
+		AnneeRenov = anneeRenov;
+	}
+	public float getPourcentage() {
+		return pourcentage;
+	}
+	public void setPourcentage(float pourcentage) {
+		this.pourcentage = pourcentage;
+	}
+	public Monument Lire(){
+		Scanner sc= new Scanner(System.in);
+		MonRenvoe m = new MonRenvoe();
+		System.out.println("Lecture du monument :");
+		System.out.println("Nom: "); m.nom=sc.next();
+		System.out.println("Catégorie: "); m.categorie=sc.next();
+		System.out.println("Lieu: "); m.lieu=sc.next();
+		System.out.println("Nombre de jours d'ouverture: "); int n=sc.nextInt();
+		for (int i = 0; i <n; i++) {
+			System.out.println("Entrez un jours: ");
+			String s = sc.next();
+			s.toLowerCase();
+			switch(s){
+			case "dimanche":
+					m.joursVisiste.add(Jours.Dimanche);
+			break;
+			case "samedi":
+				m.joursVisiste.add(Jours.Samedi);
+			break;
+			case "lundi":
+				m.joursVisiste.add(Jours.Lundi);
+			break;
+			case "mardi":
+				m.joursVisiste.add(Jours.Mardi);
+			break;
+			case "mercredi":
+				m.joursVisiste.add(Jours.Mercredi);
+			break;
+			case "jeudi":
+				m.joursVisiste.add(Jours.Jeudi);
+			break;
+			case "vendredi":
+				m.joursVisiste.add(Jours.Vendredi);
+			break;
+			default:
+			    System.out.println("Entrez un jours valide");
+			    break;
+			}
+		}
+		return m;
+	}
+	
+}

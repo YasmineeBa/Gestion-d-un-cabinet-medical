@@ -1,0 +1,139 @@
+import java.util.Vector;
+public class CentreCommercial implements Critere{
+	//variables d'instance
+	String nom;
+	String adresse;
+	Vector<Client> clients;
+	Vector<Produit> produits;
+	Vector<Commande> commandes;
+	//constructeurs
+	public CentreCommercial(){
+	}
+	public CentreCommercial(String nom, String adresse) {
+		this.nom = nom;
+		this.adresse = adresse;
+		this.produits = new Vector<Produit>();
+	}	
+	
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public String getAdresse() {
+		return adresse;
+	}
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+	public Vector<Client> getClients() {
+		return clients;
+	}
+	public void setClients(Vector<Client> clients) {
+		this.clients = clients;
+	}
+	public Vector<Produit> getProduits() {
+		return produits;
+	}
+	public void setProduits(Vector<Produit> produits) {
+		this.produits = produits;
+	}
+	
+	//méthodes d'instance
+	public Client ChercherClient(int numero){
+		int i=0;
+		while(i<this.clients.size()){
+			if(this.clients.get(i).getNumero()==numero){
+				return this.clients.get(i);
+			}
+			i++;
+		}
+		return null;
+	}
+	public void AjouterClient(Client c){
+		if(this.ChercherClient(c.getNumero())==null){
+			this.clients.add(c);
+		}
+	}
+	//
+	public void SupprimerClient(int numero){
+		Client c = this.ChercherClient(numero);
+		if(c!=null){
+			this.clients.remove(c);
+		}
+	}
+	public void ModifierClient(int numero, String nom, String prenom, String adresse, String tel){
+		int i=0;
+		while(i<this.clients.size()){
+			if(this.clients.get(i).getNumero()==numero){
+				Client c = new Client (numero,nom,prenom,adresse,tel);
+				this.clients.set(i, c);
+			}
+			i++;
+		}
+	}
+	public int nbClient(){
+		return this.clients.size();
+	}
+	public Produit ChercherProduit(int CodeBarre){
+		int i=0;
+		while(i<this.produits.size()){
+			if(this.produits.get(i).getCodeBarre()==CodeBarre){
+				return this.produits.get(i);
+			}
+			i++;
+		}
+		return null;
+	}
+	public void AjouterProduit(Produit p){
+		if(this.ChercherProduit(p.getCodeBarre())==null){
+			this.produits.add(p);
+		}
+	}
+	public void SupprimerProduit(int CodeBarre){
+		Produit p= this.ChercherProduit(CodeBarre);
+		if(p!=null){
+			this.produits.remove(p);
+		}
+	}
+	public void ModifierProduit(int codeBarre, String designation, int quantite, double prix, Categorie categorie){
+		int i=0;
+		while(i<this.produits.size()){
+			if(this.produits.get(i).getCodeBarre()==codeBarre){
+				Produit p = new Produit (codeBarre, designation, quantite, prix, categorie);
+				this.produits.set(i, p);
+			}
+			i++;
+		}
+		
+	}
+	public int nbProduits(){
+		return this.produits.size();
+	}
+	public void afficher( Vector v){
+		int i=0;
+		while(i<v.size()){
+			System.out.println(v.get(i));
+			i++;
+		}
+	}
+	@Override
+	public boolean Ok(Object o) {
+		// TODO Auto-generated method stub
+		try {
+			@SuppressWarnings("unchecked")
+			Vector<Client> CastedO = (Vector<Client>) o;
+			if(CastedO.size()<100){
+				return true;
+			}
+			else{
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+}

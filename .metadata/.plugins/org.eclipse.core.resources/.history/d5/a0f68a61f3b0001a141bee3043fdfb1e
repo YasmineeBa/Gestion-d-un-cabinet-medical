@@ -1,0 +1,22 @@
+import java.util.HashSet;
+import java.util.Scanner;
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in):
+		HashSet<Pays> C1 = new HashSet<Pays>();
+		System.out.println("1-Ajouter un pays.\n 2-Quitter\n ");
+		int choix = sc.nextInt();
+		switch(choix){
+		case 1:
+			Pays p = new Pays();
+			p.Lire();
+			C1.add(p);
+		}
+		
+	}
+
+}

@@ -1,0 +1,116 @@
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
+import java.util.Vector;
+
+
+public class Monument {
+	private String nom, categorie, lieu;
+	private Vector<Jours> joursVisiste;
+	public Monument() {
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public String getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(String categorie) {
+		this.categorie = categorie;
+	}
+	public String getLieu() {
+		return lieu;
+	}
+	public void setLieu(String lieu) {
+		this.lieu = lieu;
+	}
+	public Vector<Jours> getJours() {
+		return joursVisiste;
+	}
+	public void setJours(Vector<Jours> jours) {
+		this.joursVisiste = jours;
+	}
+	
+	public Monument Lire(){
+		Scanner sc= new Scanner(System.in);
+		Monument m = new Monument();
+		System.out.println("Lecture du monument :");
+		System.out.println("Nom: "); m.nom=sc.next();
+		System.out.println("Catégorie: "); m.categorie=sc.next();
+		System.out.println("Lieu: "); m.lieu=sc.next();
+		System.out.println("Nombre de jours d'ouverture: "); int n=sc.nextInt();
+		for (int i = 0; i <n; i++) {
+			System.out.println("Entrez un jours: ");
+			String s = sc.next();
+			s=s.toLowerCase();
+			switch(s){
+			case "dimanche":
+					m.joursVisiste.add(Jours.Dimanche);
+			break;
+			case "samedi":
+				m.joursVisiste.add(Jours.Samedi);
+			break;
+			case "lundi":
+				m.joursVisiste.add(Jours.Lundi);
+			break;
+			case "mardi":
+				m.joursVisiste.add(Jours.Mardi);
+			break;
+			case "mercredi":
+				m.joursVisiste.add(Jours.Mercredi);
+			break;
+			case "jeudi":
+				m.joursVisiste.add(Jours.Jeudi);
+			break;
+			case "vendredi":
+				m.joursVisiste.add(Jours.Vendredi);
+			break;
+			default:
+			    System.out.println("Entrez un jours valide");
+			    break;
+			}
+		}
+		return m;
+	}
+	@Override
+	public String toString() {
+		return "Monument [nom=" + nom + ", categorie=" + categorie + ", lieu="
+				+ lieu + ", joursVisiste=" + joursVisiste + "]";
+	}
+	public String etatMon(){
+		Date d = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		int dayOfTheWeek = c.get((Calendar.DAY_OF_WEEK));
+		Jours j ;
+		switch(dayOfTheWeek){
+		case 1:
+			j=Jours.Lundi;
+		break;
+		case 2:
+			j=Jours.Mardi;
+		break;
+		case 3:
+			j=Jours.Mercredi;
+		break;
+		case 4:
+			j=Jours.Jeudi;
+		break;
+		case 5:
+			j=Jours.Vendredi;
+		break;
+		case 6:
+			j=Jours.Samedi;
+		break;
+		case 7:
+			j=Jours.Dimanche;
+		break;
+		default:
+		    System.out.println("Entrez un jours valide");
+		    break;
+		}
+	}
+}

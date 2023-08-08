@@ -1,0 +1,6 @@
+
+public class Exeption extends Exception{
+	public Superieur(String message){
+		super(message);
+	}
+}

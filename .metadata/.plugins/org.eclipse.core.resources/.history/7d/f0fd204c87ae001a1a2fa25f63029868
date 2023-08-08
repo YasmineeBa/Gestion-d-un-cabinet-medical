@@ -1,0 +1,128 @@
+package CabinetMedical1;
+
+import java.awt.EventQueue;
+import java.sql.*;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import java.awt.Font;
+
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+
+public class EnregistrerResultatFrame {
+
+	private JFrame frame;
+	private JTextField textBilan;
+	private JTextField textResultat;
+	private JTextField textCommentaire;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					EnregistrerResultatFrame window = new EnregistrerResultatFrame();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public EnregistrerResultatFrame() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 709, 274);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JLabel lblBilan = new JLabel("Bilan");
+		lblBilan.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblBilan.setBounds(10, 12, 46, 14);
+		frame.getContentPane().add(lblBilan);
+		
+		JLabel lblDate = new JLabel("Date");
+		lblDate.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblDate.setBounds(518, 13, 46, 14);
+		frame.getContentPane().add(lblDate);
+		
+		JLabel lblDatetext = new JLabel("New label");
+		lblDatetext.setBounds(574, 13, 46, 14);
+		frame.getContentPane().add(lblDatetext);
+		
+		JLabel lblResultat = new JLabel("Resultat");
+		lblResultat.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblResultat.setBounds(10, 37, 60, 14);
+		frame.getContentPane().add(lblResultat);
+		
+		JLabel lblCommentaire = new JLabel("Commentaire");
+		lblCommentaire.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCommentaire.setBounds(10, 62, 105, 14);
+		frame.getContentPane().add(lblCommentaire);
+		
+		textBilan = new JTextField();
+		textBilan.setBounds(66, 11, 187, 20);
+		frame.getContentPane().add(textBilan);
+		textBilan.setColumns(10);
+		
+		textResultat = new JTextField();
+		textResultat.setBounds(83, 36, 170, 20);
+		frame.getContentPane().add(textResultat);
+		textResultat.setColumns(10);
+		
+		textCommentaire = new JTextField();
+		textCommentaire.setBounds(10, 87, 673, 110);
+		frame.getContentPane().add(textCommentaire);
+		textCommentaire.setColumns(10);
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
+		btnAnnuler.setBounds(594, 208, 89, 23);
+		frame.getContentPane().add(btnAnnuler);
+		Date d;
+		try {
+			Connection conn = SqlConnection.dbConnector();
+			Statement stmt=conn.createStatement();
+			String sql = "select Bilan, DateAnalyse from analyse where numFiche='"+FicheMedicaleFrame.numFiche+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JButton btnEnregistrer = new JButton("Enregistrer");
+		btnEnregistrer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FicheMedicaleFrame.EnregistrerAnalyse(new Analyse(FicheMedicaleFrame.numFiche,textBilan.getText(),textResultat.getText(),
+						textCommentaire.getText(),d));
+			}
+		});
+		btnEnregistrer.setBounds(495, 208, 89, 23);
+		frame.getContentPane().add(btnEnregistrer);
+	}
+}

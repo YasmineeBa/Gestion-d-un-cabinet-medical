@@ -1,0 +1,9 @@
+
+public class MonRenvoe extends Monument {
+	private String AnneeRenov;
+	private float pourcentage;
+	public MonRenvoe() {
+		Super();
+	}
+	
+}

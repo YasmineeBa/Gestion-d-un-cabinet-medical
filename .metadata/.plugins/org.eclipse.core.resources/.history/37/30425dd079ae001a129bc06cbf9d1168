@@ -1,0 +1,82 @@
+package CabinetMedical1;
+
+import java.sql.*;
+
+public class Analyse {
+	//attributs
+	private String NumAnalyse, Bilan, Resultat, Commentaire;
+	//constructeurs
+
+	public Analyse(String numAnalyse, String bilan, String resultat,
+			String commentaire) {
+		NumAnalyse = numAnalyse;
+		Bilan = bilan;
+		Resultat = resultat;
+		Commentaire = commentaire;
+	}
+	public Analyse() {
+	}
+	//setters&getters
+	public String getNumAnalyse() {
+		return NumAnalyse;
+	}
+	public void setNumAnalyse(String numAnalyse) {
+		NumAnalyse = numAnalyse;
+	}
+	public String getBilan() {
+		return Bilan;
+	}
+	public void setBilan(String bilan) {
+		Bilan = bilan;
+	}
+	public String getResultat() {
+		return Resultat;
+	}
+	public void setResultat(String resultat) {
+		Resultat = resultat;
+	}
+	public String getCommentaire() {
+		return Commentaire;
+	}
+	public void setCommentaire(String commentaire) {
+		Commentaire = commentaire;
+	}
+	//méthodes d'instance
+	public static void genererNumAnalyser(){
+		try {
+			Connection conn = SqlConnection.dbConnector();
+			Statement stmt = conn.createStatement();
+			String sql="select count(*) as rowcount from rendezvous";
+			ResultSet rs = stmt.executeQuery(sql);
+			System.out.println(rs.getInt("rowcount"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void ajouterAnalyse(String NumFiche, Analyse analyse){
+		try {
+			Connection conn = SqlConnection.dbConnector();
+			Statement stmt = conn.createStatement();
+			String sql = "insert into analyse values ('"+analyse.NumAnalyse+"','"+NumFiche+"','"+analyse.Bilan+"','"+analyse.Resultat+"','"
+			              +analyse.Commentaire+"'";
+			stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public static void modifierAnalyse(String numAnalyse, String bilan, String resultat, String commentaire){
+		try {
+			Connection conn = SqlConnection.dbConnector();
+			Statement stmt = conn.createStatement();
+			String sql = "update analyse set bilan='"+bilan+"', resultat='"+resultat+"', commentaire ='"+commentaire+"' where"
+					+"numanalyse='"+numAnalyse+"'";
+			stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+}

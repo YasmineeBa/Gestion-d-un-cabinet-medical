@@ -1,0 +1,36 @@
+import java.util.Vector;
+import java.util.Date;
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//création d'un centre commercial
+		Categorie cat= null;
+		CentreCommercial c= new CentreCommercial("HaniaCenter","Alger");
+		//ajout des clients
+		Vector<Client> V = new Vector<Client>();
+		c.setClients(V);
+		c.AjouterClient(new Client(1254,"Scott","Hardin","London","0456987"));
+		c.AjouterClient(new Client(5541,"Kirigaya","Naoru","Tokyo","0564266"));
+		c.AjouterClient(new Client(5874,"Asahina","Yusuke","zeralda","0256984"));
+		//ajout des produits
+		c.getProduits().add(new Produit(001,"one",50,250.0,Categorie.Alimentaire));
+		c.getProduits().add(new Produit(002,"two",40,350.0,Categorie.Detergent));
+		c.getProduits().add(new Produit(003,"three",25,600.0,Categorie.Cosmetique));
+		c.getProduits().add(new Produit(004,"four",55,25000.0,Categorie.Vestimentaire));
+		//ajout des commandes
+		c.getCommandes().add(new Commande(new Date(),25,c.getClients().get(0),c.getProduits().get(2)));
+		c.getCommandes().add(new Commande(new Date(),14,c.getClients().get(1),c.getProduits().get(1)));
+		c.getCommandes().add(new Commande(new Date(),24,c.getClients().get(1),c.getProduits().get(2)));
+		c.getCommandes().add(new Commande(new Date(),6,c.getClients().get(2),c.getProduits().get(0)));
+		//le client le plus fidèle
+		System.out.println("Le client le plus fidèle est: \n");
+		if (c.clientFidele() != null) {
+			c.clientFidele().afficher();
+		}
+		else{
+			System.out.println("i didn't work");
+		}
+	}
+
+}

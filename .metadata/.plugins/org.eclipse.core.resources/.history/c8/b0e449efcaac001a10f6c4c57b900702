@@ -1,0 +1,236 @@
+package CabinetMedical1;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import java.awt.Font;
+
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class NouvelleConsultationFrame {
+
+	private JFrame frmConsultation;
+	private JTextField textPatient;
+	private JTable table;
+	private JTextField textObservation;
+	private JTextField textField_2;
+	private JTextField textMaladie;
+	private JTable table_1;
+	private JTextField textAnalyse;
+	private JTable table_2;
+	private JTextField textNomMedoc;
+	private JTextField textDosage;
+	private JTextField textDuree;
+	public static String OpeningCode;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					NouvelleConsultationFrame window = new NouvelleConsultationFrame();
+					window.frmConsultation.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public NouvelleConsultationFrame() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmConsultation = new JFrame();
+		frmConsultation.setTitle("Consultation");
+		frmConsultation.setBounds(100, 100, 1184, 619);
+		frmConsultation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmConsultation.getContentPane().setLayout(null);
+		
+		JLabel lblCodePatient = new JLabel("Patient:");
+		lblCodePatient.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCodePatient.setBounds(10, 11, 69, 14);
+		frmConsultation.getContentPane().add(lblCodePatient);
+		
+		textPatient = new JTextField();
+		textPatient.setBounds(89, 10, 207, 20);
+		frmConsultation.getContentPane().add(textPatient);
+		textPatient.setColumns(10);
+		textPatient.setText(ParcourPatientCons.ChosenName);
+		
+		JButton button = new JButton("...");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmConsultation.dispose();
+				ParcourPatientCons.main(null);
+			}
+		});
+		button.setBounds(306, 9, 29, 23);
+		frmConsultation.getContentPane().add(button);
+		
+		JLabel lblMaladiesDiagnostiques = new JLabel("Maladies diagnostiqu\u00E9es:");
+		lblMaladiesDiagnostiques.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMaladiesDiagnostiques.setBounds(6, 53, 182, 29);
+		frmConsultation.getContentPane().add(lblMaladiesDiagnostiques);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(6, 79, 329, 124);
+		frmConsultation.getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		JButton btnAjouter = new JButton("Ajouter");
+		btnAjouter.setBounds(459, 109, 89, 23);
+		frmConsultation.getContentPane().add(btnAjouter);
+		
+		JLabel lblObservation = new JLabel("Observation:");
+		lblObservation.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblObservation.setBounds(10, 415, 100, 14);
+		frmConsultation.getContentPane().add(lblObservation);
+		
+		textObservation = new JTextField();
+		textObservation.setBounds(105, 415, 443, 63);
+		frmConsultation.getContentPane().add(textObservation);
+		textObservation.setColumns(10);
+		
+		JLabel lblMontant = new JLabel("Montant:");
+		lblMontant.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMontant.setBounds(298, 490, 74, 14);
+		frmConsultation.getContentPane().add(lblMontant);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(382, 489, 110, 20);
+		frmConsultation.getContentPane().add(textField_2);
+		textField_2.setColumns(10);
+		
+		JLabel lblDa = new JLabel("DA");
+		lblDa.setBounds(502, 489, 46, 14);
+		frmConsultation.getContentPane().add(lblDa);
+		
+		JButton btnFicheMedicale = new JButton("Fiche Medicale");
+		btnFicheMedicale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FicheMedicaleFrame.main(null);
+			}
+		});
+		btnFicheMedicale.setBounds(345, 9, 156, 23);
+		frmConsultation.getContentPane().add(btnFicheMedicale);
+		
+		textMaladie = new JTextField();
+		textMaladie.setBounds(345, 78, 203, 20);
+		frmConsultation.getContentPane().add(textMaladie);
+		textMaladie.setColumns(10);
+		
+		JLabel lblAnalyseDemandes = new JLabel("Analyse demand\u00E9es:");
+		lblAnalyseDemandes.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblAnalyseDemandes.setBounds(10, 218, 156, 14);
+		frmConsultation.getContentPane().add(lblAnalyseDemandes);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 243, 330, 161);
+		frmConsultation.getContentPane().add(scrollPane_1);
+		
+		table_1 = new JTable();
+		scrollPane_1.setViewportView(table_1);
+		
+		textAnalyse = new JTextField();
+		textAnalyse.setBounds(350, 243, 198, 20);
+		frmConsultation.getContentPane().add(textAnalyse);
+		textAnalyse.setColumns(10);
+		
+		JButton btnAjouter_1 = new JButton("Ajouter");
+		btnAjouter_1.setBounds(459, 274, 89, 23);
+		frmConsultation.getContentPane().add(btnAjouter_1);
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setBounds(1069, 552, 89, 23);
+		frmConsultation.getContentPane().add(btnAnnuler);
+		
+		JButton btnEnregistrer = new JButton("Enregistrer");
+		btnEnregistrer.setBounds(970, 552, 89, 23);
+		frmConsultation.getContentPane().add(btnEnregistrer);
+		
+		JLabel lblTraitement = new JLabel("Traitement:");
+		lblTraitement.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblTraitement.setBounds(565, 60, 94, 14);
+		frmConsultation.getContentPane().add(lblTraitement);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(558, 81, 600, 163);
+		frmConsultation.getContentPane().add(scrollPane_2);
+		
+		table_2 = new JTable();
+		scrollPane_2.setViewportView(table_2);
+		
+		JLabel lblNomMdicament = new JLabel("Nom m\u00E9dicament: ");
+		lblNomMdicament.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNomMdicament.setBounds(850, 276, 143, 14);
+		frmConsultation.getContentPane().add(lblNomMdicament);
+		
+		JLabel lblDosage = new JLabel("Dosage: ");
+		lblDosage.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblDosage.setBounds(924, 314, 69, 20);
+		frmConsultation.getContentPane().add(lblDosage);
+		
+		JLabel lblNombreDeDoses = new JLabel("Nombre de doses");
+		lblNombreDeDoses.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNombreDeDoses.setBounds(850, 345, 143, 29);
+		frmConsultation.getContentPane().add(lblNombreDeDoses);
+		
+		JLabel lblParJours = new JLabel("par jours: ");
+		lblParJours.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblParJours.setBounds(902, 373, 82, 29);
+		frmConsultation.getContentPane().add(lblParJours);
+		
+		JLabel lblDureDuTraiement = new JLabel("Dur\u00E9e du traiement:");
+		lblDureDuTraiement.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblDureDuTraiement.setBounds(841, 415, 143, 14);
+		frmConsultation.getContentPane().add(lblDureDuTraiement);
+		
+		textNomMedoc = new JTextField();
+		textNomMedoc.setBounds(1015, 275, 143, 20);
+		frmConsultation.getContentPane().add(textNomMedoc);
+		textNomMedoc.setColumns(10);
+		
+		textDosage = new JTextField();
+		textDosage.setBounds(1015, 316, 143, 20);
+		frmConsultation.getContentPane().add(textDosage);
+		textDosage.setColumns(10);
+		
+		textDuree = new JTextField();
+		textDuree.setBounds(1015, 414, 143, 20);
+		frmConsultation.getContentPane().add(textDuree);
+		textDuree.setColumns(10);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setBounds(1015, 362, 46, 29);
+		frmConsultation.getContentPane().add(spinner);
+		
+		JButton btnAjouter_2 = new JButton("Ajouter");
+		btnAjouter_2.setBounds(1069, 455, 89, 23);
+		frmConsultation.getContentPane().add(btnAjouter_2);
+		
+		JButton btnImprimerOrdonnance = new JButton("Imprimer ordonnance");
+		btnImprimerOrdonnance.setBounds(781, 552, 168, 23);
+		frmConsultation.getContentPane().add(btnImprimerOrdonnance);
+	}
+}

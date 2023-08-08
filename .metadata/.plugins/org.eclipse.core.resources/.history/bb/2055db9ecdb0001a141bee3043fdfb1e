@@ -1,0 +1,18 @@
+import java.util.Vector;
+
+
+public class Octet {
+	private Vector<Bit> bits;
+
+	public Octet(Vector<Bit> bits) {
+		try {
+			this.bits= new Vector<Bit>();
+			this.bits = bits;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+}

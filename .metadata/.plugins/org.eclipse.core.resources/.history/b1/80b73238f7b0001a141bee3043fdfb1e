@@ -1,0 +1,17 @@
+
+public class Bit {
+	private char valeur;
+
+	public Bit(char valeur) {
+		this.valeur = valeur;
+	}
+	
+	public void Inverse(){
+		if(this.valeur=='0') this.valeur='1';
+		else this.valeur='0';
+	}
+	
+	public String toString(){
+		return String.valueOf(this.valeur);
+	}
+}

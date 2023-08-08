@@ -1,0 +1,96 @@
+package CabinetMedical1;
+
+import java.sql.*;
+import java.text.SimpleDateFormat;
+
+public class Analyse {
+	//attributs
+	private String NumAnalyse, Bilan, Resultat, Commentaire;
+	private Date DateAnalyse;
+	//constructeurs
+	public Analyse() {
+	}
+	public Analyse(String numAnalyse, String bilan, Date dateAnalyse) {
+		NumAnalyse = numAnalyse;
+		Bilan = bilan;
+		DateAnalyse = dateAnalyse;
+	}
+	public Analyse(String numAnalyse, String bilan, String resultat,
+			String commentaire, Date dateAnalyse) {
+		NumAnalyse = numAnalyse;
+		Bilan = bilan;
+		Resultat = resultat;
+		Commentaire = commentaire;
+		DateAnalyse = dateAnalyse;
+	}
+	//setters&getters
+	public String getNumAnalyse() {
+		return NumAnalyse;
+	}
+	public void setNumAnalyse(String numAnalyse) {
+		NumAnalyse = numAnalyse;
+	}
+	public String getBilan() {
+		return Bilan;
+	}
+	public void setBilan(String bilan) {
+		Bilan = bilan;
+	}
+	public String getResultat() {
+		return Resultat;
+	}
+	public void setResultat(String resultat) {
+		Resultat = resultat;
+	}
+	public String getCommentaire() {
+		return Commentaire;
+	}
+	public void setCommentaire(String commentaire) {
+		Commentaire = commentaire;
+	}
+	//méthodes d'instance
+	public static String genererNumAnalyser(){
+		try {
+			Connection conn = SqlConnection.dbConnector();
+			Statement stmt = conn.createStatement();
+			String sql="select count(*) as rowcount from analyse";
+			ResultSet rs = stmt.executeQuery(sql);
+			int num = 0;
+			if (rs.next()) {
+				num = rs.getInt("rowcount") + 1;
+			}
+			return String.valueOf(num);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return " ";
+		}
+	}
+	public static void ajouterAnalyse(String NumFiche,String NumAnalyse, String Bilan, Date dateAnalyse){
+		try {
+			Connection conn = SqlConnection.dbConnector();
+			Statement stmt = conn.createStatement();
+			//conversion des dates
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			String d = sdf.format(dateAnalyse);
+			String sql = "insert into analyse values ('"+NumAnalyse+"','"+NumFiche+"','"+Bilan+"','  ','  ','"+d+"')";
+			stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public static void modifierAnalyse(String numAnalyse, String bilan, String resultat, String commentaire){
+		try {
+			Connection conn = SqlConnection.dbConnector();
+			Statement stmt = conn.createStatement();
+			String sql = "update analyse set bilan='"+bilan+"', resultat='"+resultat+"', commentaire ='"+commentaire+"' where"
+					+"numanalyse='"+numAnalyse+"'";
+			stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+}

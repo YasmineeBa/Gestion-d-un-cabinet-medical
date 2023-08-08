@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Vector;
+import java.util.InputMismatchException;
+
+
+public class Main {
+
+	public static void main(String[] args){
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		ArrayList Array = new ArrayList(); // création de la collection
+		System.out.println("Nombre d'octets : "); int n=sc.nextInt();
+		try { // remplissage de la collection
+			Vector<Bit> v = new Vector<Bit>();
+			for (int i = 0; i < n; i++) {
+				System.out.println("Lectur du "+i+" eme octet: ");
+				v.clear();
+				for(int j=0;j<8;j++){//Lecture de l'octet bit par bit
+					v.add(new Bit(sc.next().charAt(0)));
+				}
+				Array.add(new Octet(v)); //Ajout de l'octet dans la collection
+				Array.get(i).toString();
+			}
+			
+		} catch (TD5Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch(InputMismatchException e){
+			
+		}
+		
+	}
+
+}

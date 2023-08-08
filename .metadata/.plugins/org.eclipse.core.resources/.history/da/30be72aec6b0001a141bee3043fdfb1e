@@ -1,0 +1,9 @@
+
+public class Bit {
+	private char valeur;
+
+	public Bit(char valeur) {
+		this.valeur = valeur;
+	}
+	
+}

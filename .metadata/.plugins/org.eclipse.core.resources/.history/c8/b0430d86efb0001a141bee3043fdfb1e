@@ -1,0 +1,23 @@
+
+public class MonRenvoe extends Monument {
+	private String AnneeRenov;
+	private float pourcentage;
+	public MonRenvoe() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public String getAnneeRenov() {
+		return AnneeRenov;
+	}
+	public void setAnneeRenov(String anneeRenov) {
+		AnneeRenov = anneeRenov;
+	}
+	public float getPourcentage() {
+		return pourcentage;
+	}
+	public void setPourcentage(float pourcentage) {
+		this.pourcentage = pourcentage;
+	}
+	
+	
+}

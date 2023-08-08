@@ -1,0 +1,36 @@
+
+public class DivisionExcp {
+	//attributs
+	final private int num, deno;
+	//constructeur
+
+	public DivisionExcp(int num, int deno) {
+		this.num = num;
+		this.deno = deno;
+	}
+	public int getNum() {
+		return num;
+	}
+
+	public int getDeno() {
+		return deno;
+	}
+	//méthodes d'instances
+	private void erreur (String s) throws Exception{
+		throw new Exception(s);
+	}
+	public float divisionExcp(){
+		System.out.println("numérateur: "+this.getNum()+", dénominateur: "+this.getDeno());
+			try {
+				float f = this.getNum()/this.getDeno(); //Lancer l'exception au où le dénominateur soit nul
+				float a = (float)this.getNum(); 
+				float b = (float)this.getDeno();
+			    f = a/b;
+				return f;
+			} catch (ArithmeticException e) {
+				System.out.println("Le dénominateur est nul");
+				return -0;
+			}
+		}
+	}
+

@@ -1,0 +1,126 @@
+package CabinetMedical1;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
+
+public class Ordonnance {
+	//les attributs
+	private String NumOrdonnance;
+	private Medecin medecin;
+	private Patient patient;
+	private Vector<Medicament> medicaments;
+	private Date date;
+	//constructeurs
+	public Ordonnance() {
+		
+	}
+	public Ordonnance(String numOrdrdonnance,Date date) {
+		
+		NumOrdonnance = numOrdrdonnance;
+		this.patient=new Patient();
+		this.medecin=new Medecin();
+		this.medicaments=new Vector<Medicament>();
+		this.date = date;
+	}
+	public Ordonnance(String NumOrdrdonnance) {
+		this.patient=new Patient();
+		this.medecin=new Medecin();
+		this.medicaments=new Vector<Medicament>();
+		this.NumOrdonnance="NumOrdonnance";
+		 this.date = new Date();
+	}
+	//setters and getters
+	public String getNumOrdonnance() {
+		return NumOrdonnance;
+	}
+	public void setNumOrdonnance(String numOrdrdonnance) {
+		NumOrdonnance = numOrdrdonnance;
+	}
+	public Medecin getMedecin() {
+		return medecin;
+	}
+	public void setMedecin(Medecin medecin) {
+		this.medecin = medecin;
+	}
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	public Vector<Medicament> getMédicament() {
+		return medicaments;
+	}
+	public void setMédicament(Vector<Medicament> médicament) {
+		this.medicaments = médicament;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+   
+	//méthodes d'instance
+		public static String genererNumOrdonnance(){
+			try {
+				Connection conn = SqlConnection.dbConnector();
+				Statement stmt = conn.createStatement();
+				String sql="select count(*) as rowcount from Ordonnance";
+				ResultSet rs = stmt.executeQuery(sql);
+				int num = 0;
+				if (rs.next()) {
+					num = rs.getInt("rowcount") + 1;
+				}
+				return String.valueOf(num);
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+				return " ";
+			}
+		}
+		
+		
+		public static void ajouterOrdonnance(String CleCons,Ordonnance Ord){
+			try {
+				Connection conn = SqlConnection.dbConnector();
+				Statement stmt = conn.createStatement();
+				//conversion de date
+				SimpleDateFormat date = new SimpleDateFormat("dd/mm/yyyy");
+				String d= date.format(Ord.getDate());
+				String sql = "insert into Ordonnance values ('"+Ord.getNumOrdonnance()+"','"+CleCons+"','"+Ord.getMedecin()+"','"+Ord.getPatient()+"','"+d+"')";
+				stmt.executeQuery(sql);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		public static void modifierOrdonnance(String numOrdonnance,Date date){
+			try {
+				Connection conn = SqlConnection.dbConnector();
+				Statement stmt = conn.createStatement();
+				String sql = "update Ordonnance set NumOrdrdonnance='"+numOrdonnance+"',dateOrd='"+date+"' where" +"NumOrdonnance='"+numOrdonnance+"'";
+						
+				stmt.executeQuery(sql);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		public static void SupprimerOrdonnace(String numOrdonnance){
+			try{
+				Connection conn= SqlConnection.dbConnector();
+				Statement stmt=conn.createStatement();
+				String sql="delete from Ordonnance where NumOrdonnance = '"+numOrdonnance+"'";
+				
+				stmt.executeQuery(sql);
+				 sql = "delete from ordonnance_médoc  where NumOrdonnance = '"+numOrdonnance+"'";
+				 stmt.executeQuery(sql);
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
+		}
+}

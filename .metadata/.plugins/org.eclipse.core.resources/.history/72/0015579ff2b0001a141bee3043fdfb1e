@@ -1,0 +1,51 @@
+import java.util.Scanner;
+import java.util.Vector;
+
+
+public class Pays {
+	private String nom;
+	private Vector<Monument> monuments;
+	public Pays() {
+		this.monuments = new Vector<Monument>();
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public Vector<Monument> getMonuments() {
+		return monuments;
+	}
+	public void setMonuments(Vector<Monument> monuments) {
+		this.monuments = monuments;
+	}
+	public void Lire(){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Nom du pays: "); this.nom=sc.next();
+		System.out.println("Nombre de monuments: "); int n = sc.nextInt();
+		int type = 0;
+		for(int i =0; i<n; i++){
+			System.out.println("\1 1-Monument non-rénové. \n");
+			System.out.println("2- Monument rénové. \n Entrez votre choix. ");
+			type=sc.nextInt();
+			switch(type){
+			case 1:
+				Monument m = new Monument();
+				m.Lire();
+				this.monuments.add(m);
+			case 2:
+				MonRenvoe mr = new MonRenvoe();
+				mr.Lire();
+				this.monuments.add(mr);
+			}
+		}
+	}
+	@Override
+	public String toString() {
+		return "Pays [nom=" + nom + ", monuments=" + monuments + "]";
+	}
+	public void afficher(){
+		System.out.println(this.toString());
+	}
+}

@@ -1,0 +1,32 @@
+import java.util.Scanner;
+import java.util.Vector;
+
+
+public class Pays {
+	private String nom;
+	private Vector<Monument> monuments;
+	public Pays() {
+		this.monuments = new Vector<Monument>();
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public Vector<Monument> getMonuments() {
+		return monuments;
+	}
+	public void setMonuments(Vector<Monument> monuments) {
+		this.monuments = monuments;
+	}
+	public Pays Lire(){
+		Scanner sc = new Scanner(System.in);
+		Pays p = new Pays();
+		System.out.println("Nom du pays: "); p.nom=sc.next();
+		System.out.println("Monuments: ");
+		for(int i =0; i<n; i++){
+			
+		}
+	}
+}

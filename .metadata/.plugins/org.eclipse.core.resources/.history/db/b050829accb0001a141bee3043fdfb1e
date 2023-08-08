@@ -1,0 +1,6 @@
+
+public class TD5Exception extends Exception{
+	public Exception(String message){
+		super(message);
+	}
+}

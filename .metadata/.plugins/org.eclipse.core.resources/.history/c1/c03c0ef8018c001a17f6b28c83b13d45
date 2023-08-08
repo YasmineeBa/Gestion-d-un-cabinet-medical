@@ -1,0 +1,34 @@
+import java.util.Vector;
+import java.util.Date;
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//création de clients
+		Client c1= new Client(1254,"ziane","hania","alger","0456987");
+		Client c2= new Client(5541,"haddad","ines","algerie","0564266");
+		Client c3= new Client(5874,"hamadouche","racim","zeralda","0256984");
+		//création de produits
+		Categorie cat= null;
+		Produit p1= new Produit(1548,"grand",40,150,cat.Alimentaire);
+		Produit p2= new Produit(5487,"grand",98,542,cat.Cosmetique);
+		Produit p3= new Produit(6512,"petit",56,85462,cat.Vestimentaire);
+		//création de lignes facturées + teste de la méthode calculeMontant
+		LigneFactree l1= new LigneFactree(p1,40,6,0);
+		l1.setMontantLigne(l1.calculeMontant());
+		LigneFactree l2= new LigneFactree(p2,60,5,0);
+		l2.setMontantLigne(l2.calculeMontant());
+		LigneFactree l3= new LigneFactree(p3,58,12,0);
+		l3.setMontantLigne(l3.calculeMontant());
+		//création d'une facture
+		Vector<LigneFactree> Vl= new Vector<LigneFactree>();
+		Vl.add(l1);
+		Vl.add(l2);
+		Vl.add(l3);
+		Date d= new Date();
+		Facture F= new Facture(c1,201,d,Vl);
+		F.calculeMontant();
+		F.afficher();
+	}
+
+}

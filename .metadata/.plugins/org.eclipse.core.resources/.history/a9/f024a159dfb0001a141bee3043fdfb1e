@@ -1,0 +1,40 @@
+import java.util.Vector;
+
+
+public class Octet {
+	private Vector<Bit> bits;
+
+	public Octet(Vector<Bit> bits) throws TD5Exception {
+		for(int i=0;i<bits.size();i++){
+			if((bits.get(i).toString()=="0" || bits.get(i).toString()=="1")) throw new TD5Exception("Valeur de bit invalide");
+		}
+		this.bits = bits;
+	}
+	
+	public String toString(){
+		String s = this.bits.get(0).toString();
+		for(int i=1; i<8; i++){
+			s=s+this.bits.get(i).toString();
+		}
+		return s;
+	}
+	
+	public Octet Compl1() throws TD5Exception{
+		Octet v = new Octet(new Vector<Bit>());
+		for(int i=0;i<8;i++){
+			v.bits.add(this.bits.get(i));
+			v.bits.get(i).Inverse();
+		}
+		return v;
+	}
+	
+	public static Octet OrLogique(Octet O1, Octet O2) throws TD5Exception{
+		Octet Or = new Octet(new Vector<Bit>());
+		for(int i=0; i<8; i++){
+			if(O1.bits.get(i).toString()=="0" && O2.bits.get(i).toString()=="0"){ Or.bits.add(new Bit('0'));
+			System.out.println(0);}
+			else {Or.bits.add(new Bit('1'));}
+		}
+		return Or;
+	}
+}

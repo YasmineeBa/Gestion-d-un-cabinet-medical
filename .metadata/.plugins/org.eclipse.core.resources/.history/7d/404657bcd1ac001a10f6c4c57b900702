@@ -1,0 +1,178 @@
+package CabinetMedical1;
+
+import java.sql.*;
+import java.util.Vector;
+
+public class FicheMedicale {
+	//attributs
+	private String NumFiche; //NumFiche=CodePatient
+	private Patient patient;
+	private Medecin medecin;
+	private String GroupeSanguin;
+	private int taille, poids;
+	private String Tension;
+	private double TauxDiabete;
+	private Vector<Analyse> analyses;
+	private Vector<Maladie> maladies;
+	private String modif;
+	//constructeurs
+	public FicheMedicale(String numFiche,
+			String groupeSanguin, int taille, int poids, String tension,
+			double tauxDiabete, String modif) {
+		this.patient=new Patient();
+		this.medecin=new Medecin();
+		this.analyses=new Vector<Analyse>();
+		this.maladies=new Vector<Maladie>();
+		NumFiche = numFiche;
+		GroupeSanguin = groupeSanguin;
+		this.taille = taille;
+		this.poids = poids;
+		Tension = tension;
+		TauxDiabete = tauxDiabete;
+		this.modif = modif;
+	}
+	public FicheMedicale(String NumFiche) {
+		this.patient=new Patient();
+		this.medecin=new Medecin();
+		this.analyses=new Vector<Analyse>();
+		this.maladies=new Vector<Maladie>();
+		this.NumFiche= NumFiche;
+		this.GroupeSanguin=" ";
+		this.taille=0;
+		this.poids=0;
+		this.TauxDiabete=0;
+	}
+	//setters&getters
+	public String getNumFiche() {
+		return NumFiche;
+	}
+	public void setNumFiche(String numFiche) {
+		NumFiche = numFiche;
+	}
+	public Medecin getMedecin() {
+		return medecin;
+	}
+	public void setMedecin(Medecin medecin) {
+		this.medecin = medecin;
+	}
+	public String getGroupeSanguin() {
+		return GroupeSanguin;
+	}
+	public void setGroupeSanguin(String groupeSanguin) {
+		GroupeSanguin = groupeSanguin;
+	}
+	public int getTaille() {
+		return taille;
+	}
+	public void setTaille(int taille) {
+		this.taille = taille;
+	}
+	public int getPoids() {
+		return poids;
+	}
+	public void setPoids(int poids) {
+		this.poids = poids;
+	}
+	public String getTension() {
+		return Tension;
+	}
+	public void setTension(String tension) {
+		Tension = tension;
+	}
+	public double getTauxDiabete() {
+		return TauxDiabete;
+	}
+	public void setTauxDiabete(double tauxDiabete) {
+		TauxDiabete = tauxDiabete;
+	}
+	public Vector<Analyse> getAnalyses() {
+		return analyses;
+	}
+	public void setAnalyses(Vector<Analyse> analyses) {
+		this.analyses = analyses;
+	}
+	public String getModif() {
+		return modif;
+	}
+	public void setModif(String modif) {
+		this.modif = modif;
+	}
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	public Vector<Maladie> getMaladies() {
+		return maladies;
+	}
+	public void setMaladies(Vector<Maladie> maladies) {
+		this.maladies = maladies;
+	}
+	//méthodes d'instances
+	public static FicheMedicale ChercherFicheMedicale(String NumFiche){
+		try {
+			Connection conn = SqlConnection.dbConnector();
+			Statement stmt = conn.createStatement();
+			String sql = "select*from fichemedicale where numfiche='"+NumFiche+"'";
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				FicheMedicale f= new FicheMedicale(NumFiche,rs.getString(3),rs.getInt(5),rs.getInt(6),rs.getString(4),rs.getDouble(7),rs.getString(8));
+				return f;
+			}
+			else{
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public static void ajouterFicheMedicale(FicheMedicale fm){
+		if(ChercherFicheMedicale(fm.getNumFiche())==null){
+			try {
+				Connection conn = SqlConnection.dbConnector();
+				Statement stmt = conn.createStatement();
+				int i;
+				for(i=0;i<fm.getAnalyses().size();i++){
+					Analyse.ajouterAnalyse(fm.getNumFiche(),fm.getAnalyses().get(i));
+				}
+				String sql = "insert into fichemedicale values('"+fm.getNumFiche()+"','"+fm.getMedecin().getMatricule()+"','"
+						+fm.getGroupeSanguin()+"',"+fm.getTension()+","+fm.getTaille()+","+fm.getPoids()+","+fm.getTauxDiabete()
+						+",'"+fm.getModif()+"')";
+				System.out.println(sql);
+				stmt.executeQuery(sql);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	public static void modifierFicheMedicale(String numFiche, String groupeSanguin, int taille, int poids, String tension,
+			double tauxDiabete){
+		try {
+			Connection conn = SqlConnection.dbConnector();
+			Statement stmt = conn.createStatement();
+			String sql = "update fichemedicale set grpsanguin='"+groupeSanguin+"', taille="+taille+", poids=" +poids+
+			", tauxdiab="+tauxDiabete+"tension='"+tension+"', modif='"+Login.user+"' where numfiche='"+numFiche+"'";
+			stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void SupprimerFicheMedicale(String numFiche){
+		try{
+			Connection conn= SqlConnection.dbConnector();
+			Statement stmt=conn.createStatement();
+			String sql="delete from Analyse where numfiche = '"+ numFiche+"'";
+			stmt.executeQuery(sql);
+			sql ="delete from fiche_maladie where numFiche='"+numFiche+"'";
+			stmt.executeQuery(sql);
+			sql = "delete from FicheMedicale where numfiche = '"+ numFiche+"'";
+			stmt.executeQuery(sql);
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+	}
+}
